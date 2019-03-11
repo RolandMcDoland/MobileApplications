@@ -1,0 +1,50 @@
+img{
+	max-width:100%;
+	height: auto;
+	width: auto;
+}
+body{
+	background-color: beige;
+}
+div{
+	padding: 0px;
+	margin: 0px;
+	border-width: 0px;
+}
+#dos{
+	height: 100px;
+	width: 100%;
+	float: left;
+	text-align: center;
+	background-color: rgb(153, 153, 102);
+	font-family: Helvetica;
+	font-size: 15px;
+}
+#tres{
+	text-align: center;
+	height: 100px;
+	width: 100%;
+	float: left;
+	background-color: rgb(102, 102, 51);
+	font-family: Arial;
+	font-size: 15px;
+}
+#quatro{
+	text-align: center;
+	height: 100px;
+	width: 100%;
+	float: left;
+	display: none;
+	background-color: rgb(204, 153, 0);
+	font-family: Arial;
+	font-size: 15px;
+}
+#sinco{
+	text-align: center;
+	height: 100px;
+	width: 100%;
+	float: left;
+	background-color: rgb(255, 153, 0);
+	font-family: Arial;
+	font-size: 15px;
+}

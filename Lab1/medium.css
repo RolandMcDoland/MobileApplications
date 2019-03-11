@@ -1,0 +1,49 @@
+img{
+	max-width:100%;
+	height: auto;
+	width: auto;
+}
+body{
+	background-color: beige;
+}
+div{
+	padding: 0px;
+	margin: 0px;
+	border-width: 0px;
+}
+#dos{
+	height: 250px;
+	width: 50%;
+	float: left;
+	text-align: center;
+	background-color: rgb(153, 153, 102);
+	font-family: Helvetica;
+	font-size: 20px;
+}
+#tres{
+	text-align: center;
+	height: 250px;
+	width: 50%;
+	float: right;
+	background-color: rgb(102, 102, 51);
+	font-family: Arial;
+	font-size: 20px;
+}
+#quatro{
+	text-align: center;
+	float: right;
+	height: 250px;
+	width: 100%;
+	background-color: rgb(204, 153, 0);
+	font-family: Arial;
+	font-size: 20px;
+}
+#sinco{
+	text-align: center;
+	float: right;
+	height: 250px;
+	width: 100%;
+	background-color: rgb(255, 153, 0);
+	font-family: Arial;
+	font-size: 25px;
+}
