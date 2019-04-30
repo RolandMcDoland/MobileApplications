@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
         var numberToGuess = (0..20).random()
 
         //Initialize the try counter
-        var counter = 0
+        var counter = 1
 
         //Initialize the new game toaster
         val duration = Toast.LENGTH_SHORT
@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
 
         //Initialize the win dialog
         val dialog = AlertDialog.Builder(this)
-        dialog.setTitle("Androidly Alert")
+        dialog.setTitle("Congratulations!")
 
         //After alert is cancelled inform about new game started
         dialog.setOnCancelListener { toast.show() }
