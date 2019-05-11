@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
-import android.content.DialogInterface
 import java.io.*
 
 
@@ -32,7 +31,7 @@ class MainActivity : AppCompatActivity() {
         dialog.setOnCancelListener { toast.show() }
 
         //File name
-        val fileName = "BestScore.txt"
+        val fileName = "AppScore.txt"
 
         //Set the best score as something easy to beat
         var appScore = 0
