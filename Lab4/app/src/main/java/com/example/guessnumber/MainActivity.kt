@@ -1,11 +1,13 @@
 package com.example.guessnumber
 
+import android.os.AsyncTask
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.*
+import java.net.URL
 
 
 class MainActivity : AppCompatActivity() {
@@ -88,6 +90,9 @@ class MainActivity : AppCompatActivity() {
                     e.printStackTrace()
                 }
 
+                //Send your score to endpoint
+                CommunicationController(this).execute("http://hufiecgniezno.pl/br/record.php?f=add&id=132220&r=" + appScore)
+
                 //Display score so far
                 textView.setText("Score so far: " + appScore.toString()).toString()
 
@@ -144,6 +149,24 @@ class MainActivity : AppCompatActivity() {
             return 2
         else
             return 1
+    }
+
+    class CommunicationController(private var activity: MainActivity?) : AsyncTask<String, String, String>() {
+        override fun onPreExecute() {
+            super.onPreExecute()
+        }
+
+        override fun doInBackground(vararg params: String?): String {
+            val url = params[0]
+            URL(url)
+            return "ok"
+        }
+
+        override fun onPostExecute(result: String?) {
+            super.onPostExecute(result)
+        }
+        //"http://hufiecgniezno.pl/br/record.php?f=get"
+        //"http://hufiecgniezno.pl/br/record.php?f=add&id=132220&r=" + params[0]
     }
 }
 
