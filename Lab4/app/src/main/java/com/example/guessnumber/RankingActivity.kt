@@ -46,24 +46,30 @@ class RankingActivity : AppCompatActivity() {
         }
     }
 
+    //Handle JSON as String as I have no knowledge about its structure
     private fun handleJSON(result: String?) {
         var rankingView = ""
 
+        //Separate into single fields
         val separatedEntries = result!!.split(",")
 
         var counter = 0
         var jumper = 1
 
+        //Get top ten
         while(counter < 10){
+            //Get the username and score
             rankingView += separatedEntries.get(jumper) + "\t" + separatedEntries.get(jumper + 1) + "\n"
 
             jumper += 3
             counter++
         }
 
+        //Get rid of unnecessary characters
         rankingView = rankingView.replace("]", "")
         rankingView = rankingView.replace("\"", "")
 
+        //Put it in the proper textView
         rankingTextView.text = rankingView
     }
 }
