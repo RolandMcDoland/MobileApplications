@@ -7,6 +7,7 @@ import android.support.v7.app.AlertDialog
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.*
+import java.net.HttpURLConnection
 import java.net.URL
 
 
@@ -21,6 +22,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        //For testing purposes
+        numberToGuess = 7
 
         //Initialize the new game toaster
         val duration = Toast.LENGTH_SHORT
@@ -73,13 +77,16 @@ class MainActivity : AppCompatActivity() {
             if(editText.text.toString().toInt() == numberToGuess) {
                 score = getScore(counter)
 
+                //Update application score
+                appScore += score
+
+                //Send your score to endpoint
+                CommunicationController().execute("http://hufiecgniezno.pl/br/record.php?f=add&id=132220&r=" + appScore)
+
                 //Show win dialog
                 dialog.setTitle("Congratulations!")
                 dialog.setMessage("Game won in " + counter.toString() + " tries with the score of " + score.toString())
                 dialog.show()
-
-                //Update application score
-                appScore += score
 
                 //Write application score to memory
                 val fileOutputStream: FileOutputStream
@@ -89,9 +96,6 @@ class MainActivity : AppCompatActivity() {
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
-
-                //Send your score to endpoint
-                CommunicationController(this).execute("http://hufiecgniezno.pl/br/record.php?f=add&id=132220&r=" + appScore)
 
                 //Display score so far
                 textView.setText("Score so far: " + appScore.toString()).toString()
@@ -151,22 +155,27 @@ class MainActivity : AppCompatActivity() {
             return 1
     }
 
-    class CommunicationController(private var activity: MainActivity?) : AsyncTask<String, String, String>() {
-        override fun onPreExecute() {
-            super.onPreExecute()
-        }
-
-        override fun doInBackground(vararg params: String?): String {
-            val url = params[0]
-            URL(url)
-            return "ok"
+    inner class CommunicationController : AsyncTask<String, String, String>() {
+        override fun doInBackground(vararg url: String?): String {
+            var response : String
+            val connection =  URL(url[0]).openConnection() as HttpURLConnection
+            try {
+                connection.connect()
+                response = connection.inputStream.use{it.reader().use{reader -> reader.readText()} }
+            } finally {
+                connection.disconnect()
+            }
+            return response
         }
 
         override fun onPostExecute(result: String?) {
             super.onPostExecute(result)
+
+            if(result != "OK") {
+                // TODO handle JSON
+            }
         }
         //"http://hufiecgniezno.pl/br/record.php?f=get"
-        //"http://hufiecgniezno.pl/br/record.php?f=add&id=132220&r=" + params[0]
     }
 }
 
