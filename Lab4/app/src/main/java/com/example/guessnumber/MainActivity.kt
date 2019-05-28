@@ -1,5 +1,6 @@
 package com.example.guessnumber
 
+import android.content.Intent
 import android.os.AsyncTask
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -65,16 +66,16 @@ class MainActivity : AppCompatActivity() {
             appScore = stringBuilder.toString().toInt()
 
             //Display the score so far
-            textView.setText("Score so far: " + stringBuilder.toString()).toString()
+            scoreTextView.setText("Score so far: " + stringBuilder.toString()).toString()
         }
         else {
             //Display information about lack of high scores
-            textView.setText("No score yet").toString()
+            scoreTextView.setText("No score yet").toString()
         }
 
-        button.setOnClickListener {
+        checkGuessButton.setOnClickListener {
             //If you win
-            if(editText.text.toString().toInt() == numberToGuess) {
+            if(numberEditText.text.toString().toInt() == numberToGuess) {
                 score = getScore(counter)
 
                 //Update application score
@@ -98,7 +99,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 //Display score so far
-                textView.setText("Score so far: " + appScore.toString()).toString()
+                scoreTextView.setText("Score so far: " + appScore.toString()).toString()
 
                 startNewGame()
             }
@@ -119,8 +120,14 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        button2.setOnClickListener{
+        newGameButton.setOnClickListener{
             startNewGame(toast)
+        }
+
+        //Move to ranking activity to see top 10 scores
+        rankingButton.setOnClickListener{
+            val intent = Intent(this, RankingActivity::class.java)
+            startActivity(intent)
         }
     }
 
@@ -155,27 +162,19 @@ class MainActivity : AppCompatActivity() {
             return 1
     }
 
+    //Get a response from specified URL
     inner class CommunicationController : AsyncTask<String, String, String>() {
         override fun doInBackground(vararg url: String?): String {
-            var response : String
-            val connection =  URL(url[0]).openConnection() as HttpURLConnection
+            var response: String
+            val connection = URL(url[0]).openConnection() as HttpURLConnection
             try {
                 connection.connect()
-                response = connection.inputStream.use{it.reader().use{reader -> reader.readText()} }
+                response = connection.inputStream.use { it.reader().use { reader -> reader.readText() } }
             } finally {
                 connection.disconnect()
             }
             return response
         }
-
-        override fun onPostExecute(result: String?) {
-            super.onPostExecute(result)
-
-            if(result != "OK") {
-                // TODO handle JSON
-            }
-        }
-        //"http://hufiecgniezno.pl/br/record.php?f=get"
     }
 }
 
