@@ -5,6 +5,7 @@ import android.os.AsyncTask
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_ranking.*
+import org.json.JSONArray
 import java.net.HttpURLConnection
 import java.net.URL
 
@@ -41,7 +42,28 @@ class RankingActivity : AppCompatActivity() {
         override fun onPostExecute(result: String?) {
             super.onPostExecute(result)
 
-            rankingTextView.text = result
+            handleJSON(result)
         }
+    }
+
+    private fun handleJSON(result: String?) {
+        var rankingView = ""
+
+        val separatedEntries = result!!.split(",")
+
+        var counter = 0
+        var jumper = 1
+
+        while(counter < 10){
+            rankingView += separatedEntries.get(jumper) + "\t" + separatedEntries.get(jumper + 1) + "\n"
+
+            jumper += 3
+            counter++
+        }
+
+        rankingView = rankingView.replace("]", "")
+        rankingView = rankingView.replace("\"", "")
+
+        rankingTextView.text = rankingView
     }
 }
