@@ -6,3 +6,4 @@ A series of small assignments in different languages used to create mobile appli
 * **Lab3**- a **basic game** in which the player must guess the number between **0-20**, written in **Kotlin**
 * **Lab4**- a development on previous assigment, includes a **fullscreen activity**, **HTTP connection handling** and **JSON handling**
 * **Lab5**- a further development, with **login and registration** and **database handling**
+* **Lab6**- a simple app in **Kotlin**, getting user's **GPS coordinates**, using **light sensor** to get light intesity and showing a **notification** after app minimization
